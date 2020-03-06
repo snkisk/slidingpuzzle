@@ -13,8 +13,8 @@
     <a href="/" class="lang-logo">
       <img src="/lang-logo.png">
     </a>
-    <h1>Getting Started with Kotlin on Heroku</h1>
-    <p>This is a sample Kotlin application deployed to Heroku. It's a reasonably simple app - but a good foundation for understanding how to get the most out of the Heroku platform.</p>
+    <h1>Heloo Ktor!</h1>
+    <p>ゲームつくるよ</p>
     <a type="button" class="btn btn-lg btn-default" href="https://devcenter.heroku.com/articles/getting-started-with-java"><span class="glyphicon glyphicon-flash"></span> Getting Started with Java</a>
     <a type="button" class="btn btn-lg btn-primary" href="https://github.com/orangy/ktor-heroku-start"><span class="glyphicon glyphicon-download"></span> Source on GitHub</a>
   </div>
