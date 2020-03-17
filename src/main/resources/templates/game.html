@@ -81,11 +81,16 @@ function keydown() {
      target = document.getElementById("message2");
      target.innerHTML = "上";
   while(player>=21){
+    if(player==51){
+      
+      break;
+      }else{
 	player=player-10;
       target=document.getElementById(player)
   target.innerHTML = '〇'
      target=document.getElementById(player+10)
   target.innerHTML = ''
+}
    }
    }else if(KC==39){
      target = document.getElementById("message2");

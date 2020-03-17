@@ -1,1 +1,136 @@
-<h1>Hello World!</h1>
+<!DOCTYPE html>
+<html lang=“ja”>
+  <head>
+    <meta charset=“UFT-8”>
+    <title>CSS</title>
+  </head>
+  <body>
+<style>
+td{
+  height:20px;
+  width:20px;
+  background-color:gray;
+}
+.block{
+  
+  background-color:brown;
+}
+
+
+</style>
+
+  <h1>Hello World!</h1>
+
+
+<table>
+    <tr>
+      <td id=11></td>
+      <td id=12></td>
+      <td id=13></td>
+      <td id=14></td>
+      <td id=15></td>
+ 
+   </tr>
+     <tr>
+      <td id=21></td>
+      <td id=22></td>
+      <td id=23></td>
+      <td id=24></td>
+      <td id=25></td>
+ 
+   </tr>
+  
+    <tr>
+       <td id=31></td>
+      <td id=32></td>
+      <td id=33></td>
+      <td id=34></td>
+      <td id=35></td>
+ 
+   </tr>
+    <tr>
+     <td class="block" id=41></td>
+      <td id=42></td>
+      <td id=43></td>
+      <td id=44></td>
+      <td id=45></td>
+   </tr>
+    <tr>
+     <td id=51></td>
+      <td id=52></td>
+      <td id=53></td>
+      <td id=54></td>
+      <td id=55></td>
+   </tr>
+ </table>
+  <div id="message"></div>
+  <div id="message2"></div>
+
+  <script>
+
+      
+document.onkeydown = keydown
+
+var player=53;
+var KC=0;
+function keydown() {
+       target = document.getElementById("message");
+        target.innerHTML = "キーが押されました KeyCode :" + event.keyCode;
+   KC=event.keyCode;
+   if(KC==38){
+     target = document.getElementById("message2");
+     target.innerHTML = "上";
+  while(player>=21){
+	player=player-10;
+      target=document.getElementById(player)
+  target.innerHTML = '〇'
+     target=document.getElementById(player+10)
+  target.innerHTML = ''
+   }
+   }else if(KC==39){
+     target = document.getElementById("message2");
+     target.innerHTML = "右";
+  while(player%10!=5){
+	player=player+1;
+    
+      target=document.getElementById(player)
+  target.innerHTML = '〇'
+     target=document.getElementById(player-1)
+  target.innerHTML = ''
+
+   }
+   }else if(KC==40){
+     target = document.getElementById("message2");
+     target.innerHTML = "下";
+  while(player<=45){
+    if(player==31){
+      
+    break;
+    }else{
+	player=player+10;
+  target=document.getElementById(player)
+  target.innerHTML = '〇'
+     target=document.getElementById(player-10)
+  target.innerHTML = ''
+    }
+  }   
+
+   }else if(KC==37){
+     target = document.getElementById("message2");
+     target.innerHTML = "左"; 
+  while(player%10!=1){
+	player=player-1;
+    target=document.getElementById(player)
+  target.innerHTML = '〇'
+     target=document.getElementById(player+1)
+  target.innerHTML = ''
+  
+   }
+   }else{
+     target = document.getElementById("message2");
+     target.innerHTML = "";
+   }
+
+ }
+  </script>
+</body>
