@@ -27,17 +27,31 @@
     left: 0;
     width: 100%;
     height: 100%;
-    font-size: 5vmax;
+    font-size: 3vmax;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .container .inner:nth-child(even) span {
-    background: #eee;
+    background-color: #eee;
   }
-  .block {
-    background: brown !important;
+  .container .inner span.block {
+    background: url('/image/wall.png') center center /cover no-repeat;
+  }
+  .container .inner span.start:before {
+    content: 'start';
+    position: absolute;
+    color: #eee;
+    text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
+    opacity: 0.2;
+  }
+  .container .inner span.goal:before {
+    content: 'goal';
+    position: absolute;
+    color: #eee;
+    text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
+    opacity: 0.2;
   }
 
   @media only screen and (max-width: 980px) {
@@ -54,7 +68,7 @@
   <div class="inner"><span id=12></span></div>
   <div class="inner"><span id=13></span></div>
   <div class="inner"><span id=14></span></div>
-  <div class="inner"><span id=15></span></div>
+  <div class="inner"><span id=15 class="goal"></span></div>
   <div class="inner"><span id=21></span></div>
   <div class="inner"><span id=22></span></div>
   <div class="inner"><span id=23></span></div>
@@ -70,7 +84,7 @@
   <div class="inner"><span id=43></span></div>
   <div class="inner"><span id=44></span></div>
   <div class="inner"><span id=45></span></div>
-  <div class="inner"><span id=51></span></div>
+  <div class="inner"><span id=51 class="start"></span></div>
   <div class="inner"><span id=52></span></div>
   <div class="inner"><span id=53></span></div>
   <div class="inner"><span id=54></span></div>
