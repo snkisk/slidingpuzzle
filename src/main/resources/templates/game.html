@@ -61,8 +61,14 @@
     }
   }
 </style>
-
-
+<table>
+<tr:block th:each="i : ${#numbers.sequence(1, 5)}">
+  <th:block th:each="j : ${#numbers.sequence(1, 5)}">
+    <p th:text="|${i}{j}個目|"></p>
+  </th:block>
+</tr:block>
+</table>
+<!--
 <div class="container">
   <div class="inner"><span id=11></span></div>
   <div class="inner"><span id=12></span></div>
@@ -90,11 +96,12 @@
   <div class="inner"><span id=54></span></div>
   <div class="inner"><span id=55></span></div>
 </div>
+-->
 
   <div id="message"></div>
   <div id="message2"></div>
 
-  <script>
+  
 
       
 document.onkeydown = keydown
