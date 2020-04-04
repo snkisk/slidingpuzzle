@@ -65,7 +65,12 @@
   <th:block th:each="i : ${#numbers.sequence(1, 5)}">
     <th:block th:each="j : ${#numbers.sequence(1, 5)}">
       <div class="inner">
-        <span id="|${i}${j}|"></span>
+        <th:block th:switch="true">
+          <span th:id="|${i}${j}|" th:case="${i == 4 && j == 1}" class="block"></span>
+          <span th:id="|${i}${j}|" th:case="${i == 5 && j == 1}" class="start"></span>
+          <span th:id="|${i}${j}|" th:case="${i == 1 && j == 5}" class="goal"></span>
+          <span th:id="|${i}${j}|" th:case="*"></span>
+        </th:block>
       </div>
     </th:block>
   </th:block>
