@@ -3,6 +3,7 @@
   <head>
     <meta charset=“UFT-8”>
     <title>CSS</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   </head>
   <body>
 <style>
@@ -84,7 +85,7 @@
   <div class="inner"><span id=43></span></div>
   <div class="inner"><span id=44></span></div>
   <div class="inner"><span id=45></span></div>
-  <div class="inner"><span id=51 class="start"></span></div>
+  <div class="inner"><span id=51 class="start">〇</span></div>
   <div class="inner"><span id=52></span></div>
   <div class="inner"><span id=53></span></div>
   <div class="inner"><span id=54></span></div>
@@ -95,75 +96,64 @@
   <div id="message2"></div>
 
   <script>
+    $(function () {
+      $(window).keydown(function (e) {
+        if (! [37, 38, 39, 40].includes(e.keyCode)) {
+          // 十字キー以外なので処理終了.
+          return false;
+        }
 
-      
-document.onkeydown = keydown
+        let is_wall_or_block = false;
+        while (! is_wall_or_block) {
+          let [row, column] = $('.container > .inner > span:contains("〇")')[0].id.split``.map(val => parseInt(val));
+          switch (e.keyCode) {
+            case 37:
+              // 左
+              is_wall_or_block = isWallOrBlock(row, column - 1);
+              moveCircle(row, column, row, column - 1, is_wall_or_block)
+              break;
+            case 38:
+              // 上
+              break;
+            case 39:
+              // 右
+              break;
+            case 40:
+              // 下
+              break;
+          }
+        }
+      });
+    });
 
-var player=53;
-var KC=0;
-function keydown() {
-       target = document.getElementById("message");
-        target.innerHTML = "キーが押されました KeyCode :" + event.keyCode;
-   KC=event.keyCode;
-   if(KC==38){
-     target = document.getElementById("message2");
-     target.innerHTML = "上";
-  while(player>=21){
-    if(player==51){
-      
-      break;
-      }else{
-	player=player-10;
-      target=document.getElementById(player)
-  target.innerHTML = '〇'
-     target=document.getElementById(player+10)
-  target.innerHTML = ''
-}
-   }
-   }else if(KC==39){
-     target = document.getElementById("message2");
-     target.innerHTML = "右";
-  while(player%10!=5){
-	player=player+1;
-    
-      target=document.getElementById(player)
-  target.innerHTML = '〇'
-     target=document.getElementById(player-1)
-  target.innerHTML = ''
+    /**
+     * 指定マスが壁かブロックであるかを返却する
+     * @param {Number} row 行
+     * @param {Number}} column 列
+     * @return {Bool} 壁かブロックならtrue/それ以外はfalse
+     */
+    function isWallOrBlock(row, column) {
+      // 当該マスが存在しない.つまり壁.
 
-   }
-   }else if(KC==40){
-     target = document.getElementById("message2");
-     target.innerHTML = "下";
-  while(player<=45){
-    if(player==31){
-      
-    break;
-    }else{
-	player=player+10;
-  target=document.getElementById(player)
-  target.innerHTML = '〇'
-     target=document.getElementById(player-10)
-  target.innerHTML = ''
+      // class="block"ある.つまりブロック.
+
+      // 壁でもブロックでもないとき.
     }
-  }   
 
-   }else if(KC==37){
-     target = document.getElementById("message2");
-     target.innerHTML = "左"; 
-  while(player%10!=1){
-	player=player-1;
-    target=document.getElementById(player)
-  target.innerHTML = '〇'
-     target=document.getElementById(player+1)
-  target.innerHTML = ''
-  
-   }
-   }else{
-     target = document.getElementById("message2");
-     target.innerHTML = "";
-   }
+    /**
+     * 指定マスから指定マスに〇を移動する
+     * @param {Number} row 現在の行
+     * @param {Number}} column 現在の列
+     * @param {Number} row 移動先の行
+     * @param {Number}} column 移動先の列
+     * @param {Number}} is_wall_or_block 壁かブロックかどうか
+     */
+     function moveCircle(from_row, from_column, to_row, to_column, is_wall_or_block) {
+      // 壁かブロック何もしない.
 
- }
+      // 現在位置の〇削除.
+
+      // 移動先に〇追加.
+    }
   </script>
 </body>
