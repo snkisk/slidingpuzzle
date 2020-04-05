@@ -82,14 +82,11 @@
 |"></style>
 
 <div class="container">
-  <th:block th:each="i : ${cells}">
-    <th:block th:each="j : ${cells}">
+  <th:block th:each="row, i: ${cells}">
+    <th:block th:each="class, j: ${row}">
       <div class="inner">
         <th:block th:switch="true">
-          <span th:id="|${i}${j}|" th:case="${i == 4 && j == 1}" class="block"></span>
-          <span th:id="|${i}${j}|" th:case="${i == 5 && j == 1}" class="start"></span>
-          <span th:id="|${i}${j}|" th:case="${i == 1 && j == 5}" class="goal"></span>
-          <span th:id="|${i}${j}|" th:case="*"></span>
+          <span th:id="|${i.count}${j.count}|" th:class="${class}"></span>
         </th:block>
       </div>
     </th:block>
