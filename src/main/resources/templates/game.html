@@ -129,12 +129,18 @@
               break;
             case 38:
               // 上
+              is_wall_or_block = isWallOrBlock(row - 1, column);
+              moveCircle(row, column, row - 1, column, is_wall_or_block)
               break;
             case 39:
               // 右
+              is_wall_or_block = isWallOrBlock(row, column + 1);
+              moveCircle(row, column, row, column + 1, is_wall_or_block)
               break;
             case 40:
               // 下
+              is_wall_or_block = isWallOrBlock(row + 1, column);
+              moveCircle(row, column, row + 1, column, is_wall_or_block)
               break;
           }
         }
@@ -147,12 +153,27 @@
      * @param {Number}} column 列
      * @return {Bool} 壁かブロックならtrue/それ以外はfalse
      */
+
+     //HTML側のidをどうやって取得するか？またそのidのclassをどうひっぱるか？
     function isWallOrBlock(row, column) {
-      // 当該マスが存在しない.つまり壁.
+      /**
+      var IdNum = row*10+column;
+        // 当該マスが存在しない.つまり壁.->T
+        if($('#IdNum')==null){
+          return true;
+        }      
+        // class="block"ある.つまりブロック.->T
+        if($('#IdNum.class')=="block"){
+          return true;
+        }
 
-      // class="block"ある.つまりブロック.
-
-      // 壁でもブロックでもないとき.
+        // 壁でもブロックでもないとき.->F
+        else{
+          return false;
+        }
+    
+    **/
+    return false;
     }
 
     /**
@@ -165,10 +186,19 @@
      */
      function moveCircle(from_row, from_column, to_row, to_column, is_wall_or_block) {
       // 壁かブロック何もしない.
+      if(is_wall_or_block==false){
+        break;
+      }
 
       // 現在位置の〇削除.
+      else{
+        let [from_row, from_column] = $('.container > .inner > span:contains("")')
+      
+
 
       // 移動先に〇追加.
+        let [to_row, to_column] = $('.container > .inner > span:contains("〇")')
+      }
     }
   </script>
 </body>
