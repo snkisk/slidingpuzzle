@@ -3,6 +3,7 @@
   <head>
     <meta charset=“UFT-8”>
     <title>CSS</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   </head>
   <body>
 <style>
@@ -128,6 +129,23 @@
   <div id="message"></div>
   <div id="message2"></div>
 
+<script>
+  $(function () {
+    alert('ゲームスタート');
+
+    $(window).keydown(function (e) {
+      if (! [37, 38, 39, 40].includes(e.keyCode)) {
+        return false;
+      }
+
+      console.log($('.container > .inner > span.goal:contains("〇")'));
+      if ($('.container > .inner > span.goal:contains("〇")').length) {
+        // 〇のあるマスにclass="goal"がある場合.
+        alert('ゲームクリア');
+      }
+    });
+  });
+</script>
   
 <script>
 
