@@ -68,7 +68,7 @@
       <div class="inner">
         <th:block th:switch="true">
           <span th:id="|${i}${j}|" th:case="${i == 4 && j == 1}" class="block"></span>
-          <span th:id="|${i}${j}|" th:case="${i == 5 && j == 1}" class="start"></span>
+          <span th:id="|${i}${j}|" th:case="${i == 5 && j == 1}" class="start">〇</span>
           <span th:id="|${i}${j}|" th:case="${i == 1 && j == 5}" class="goal"></span>
           <span th:id="|${i}${j}|" th:case="*"></span>
         </th:block>
@@ -120,27 +120,30 @@
 
         let is_wall_or_block = false;
         while (! is_wall_or_block) {
-          let [row, column] = $('.container > .inner > span:contains("〇")')[0].id.split``.map(val => parseInt(val));
+          //124 idがundfinedとでるがなにが間違いか不明
+          let [row, column] = $(".container > .inner > span :contains('〇')")[0].id.split``.map(val => parseInt(val));
+          console.log(row);
+          console.log(column);
           switch (e.keyCode) {
             case 37:
               // 左
               is_wall_or_block = isWallOrBlock(row, column - 1);
-              moveCircle(row, column, row, column - 1, is_wall_or_block)
+              moveCircle(row, column, row, column - 1, is_wall_or_block);
               break;
             case 38:
               // 上
               is_wall_or_block = isWallOrBlock(row - 1, column);
-              moveCircle(row, column, row - 1, column, is_wall_or_block)
+              moveCircle(row, column, row - 1, column, is_wall_or_block);
               break;
             case 39:
               // 右
               is_wall_or_block = isWallOrBlock(row, column + 1);
-              moveCircle(row, column, row, column + 1, is_wall_or_block)
+              moveCircle(row, column, row, column + 1, is_wall_or_block);
               break;
             case 40:
               // 下
               is_wall_or_block = isWallOrBlock(row + 1, column);
-              moveCircle(row, column, row + 1, column, is_wall_or_block)
+              moveCircle(row, column, row + 1, column, is_wall_or_block);
               break;
           }
         }
@@ -154,26 +157,26 @@
      * @return {Bool} 壁かブロックならtrue/それ以外はfalse
      */
 
-     //HTML側のidをどうやって取得するか？またそのidのclassをどうひっぱるか？
     function isWallOrBlock(row, column) {
-      /**
+      
       var IdNum = row*10+column;
+    //  console.log(IdNum);
         // 当該マスが存在しない.つまり壁.->T
-        if($('#IdNum')==null){
+        if($('#' + IdNum).length>0){
           return true;
         }      
         // class="block"ある.つまりブロック.->T
-        if($('#IdNum.class')=="block"){
+        if($('#'+IdNum, '.block').length>0){
           return true;
         }
 
         // 壁でもブロックでもないとき.->F
-        else{
+        
           return false;
-        }
+        
     
-    **/
-    return false;
+    
+
     }
 
     /**
@@ -186,19 +189,19 @@
      */
      function moveCircle(from_row, from_column, to_row, to_column, is_wall_or_block) {
       // 壁かブロック何もしない.
-      if(is_wall_or_block==false){
-        break;
+      if(is_wall_or_block){
+        return;
       }
 
       // 現在位置の〇削除.
-      else{
-        let [from_row, from_column] = $('.container > .inner > span:contains("")')
-      
-
+      var FromNum=from_row*10+from_column;
+   $('#'+FromNum ).text("");
 
       // 移動先に〇追加.
-        let [to_row, to_column] = $('.container > .inner > span:contains("〇")')
-      }
+      var ToNum=to_row*10+to_column;
+      $('#'+ToNum ).text("〇") ;     
     }
+
+    
   </script>
 </body>
