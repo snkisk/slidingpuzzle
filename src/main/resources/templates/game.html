@@ -120,10 +120,7 @@
 
         let is_wall_or_block = false;
         while (! is_wall_or_block) {
-          //124 idがundfinedとでるがなにが間違いか不明
-          let [row, column] = $(".container > .inner > span :contains('〇')")[0].id.split``.map(val => parseInt(val));
-          console.log(row);
-          console.log(column);
+          let [row, column] = $('.container > .inner > span:contains("〇")')[0].id.split``.map(val => parseInt(val));
           switch (e.keyCode) {
             case 37:
               // 左
@@ -156,29 +153,19 @@
      * @param {Number}} column 列
      * @return {Bool} 壁かブロックならtrue/それ以外はfalse
      */
-
     function isWallOrBlock(row, column) {
-      
       var IdNum = row*10+column;
-    //  console.log(IdNum);
         // 当該マスが存在しない.つまり壁.->T
-        if($('#' + IdNum).length>0){
+        if(! $('#' + IdNum).length){
           return true;
         }      
         // class="block"ある.つまりブロック.->T
-        if($('#'+IdNum, '.block').length>0){
+          if($('#'+IdNum).hasClass('block')){
           return true;
         }
-
-        // 壁でもブロックでもないとき.->F
-        
+        // 壁でもブロックでもないとき.->F        
           return false;
-        
-    
-    
-
     }
-
     /**
      * 指定マスから指定マスに〇を移動する
      * @param {Number} row 現在の行
@@ -192,16 +179,12 @@
       if(is_wall_or_block){
         return;
       }
-
       // 現在位置の〇削除.
       var FromNum=from_row*10+from_column;
-   $('#'+FromNum ).text("");
-
+      $('#'+FromNum ).text("");
       // 移動先に〇追加.
       var ToNum=to_row*10+to_column;
-      $('#'+ToNum ).text("〇") ;     
+      $('#'+ToNum ).text("〇");     
     }
-
-    
   </script>
 </body>
