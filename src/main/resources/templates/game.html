@@ -87,7 +87,7 @@
       <div class="inner">
         <th:block th:switch="true">
           <span th:id="|${i.count}${j.count}|" th:case="${class.type == 1}" class=""></span>
-          <span th:id="|${i.count}${j.count}|" th:case="${class.type == 2}" class="start"></span>
+          <span th:id="|${i.count}${j.count}|" th:case="${class.type == 2}" class="start" th:text="〇"></span>
           <span th:id="|${i.count}${j.count}|" th:case="${class.type == 3}" class="goal"></span>
           <span th:id="|${i.count}${j.count}|" th:case="${class.type == 4}" class="block"></span>
         </th:block>
@@ -118,7 +118,7 @@
   <div class="inner"><span id=43></span></div>
   <div class="inner"><span id=44></span></div>
   <div class="inner"><span id=45></span></div>
-  <div class="inner"><span id=51 class="start"></span></div>
+  <div class="inner"><span id=51 class="start">〇</span></div>
   <div class="inner"><span id=52></span></div>
   <div class="inner"><span id=53></span></div>
   <div class="inner"><span id=54></span></div>
@@ -129,7 +129,82 @@
   <div id="message"></div>
   <div id="message2"></div>
 
-<script>
+  <script>
+    $(function () {
+      $(window).keydown(function (e) {
+        if (! [37, 38, 39, 40].includes(e.keyCode)) {
+          // 十字キー以外なので処理終了.
+          return false;
+        }
+
+        let is_wall_or_block = false;
+        while (! is_wall_or_block) {
+          let [row, column] = $('.container > .inner > span:contains("〇")')[0].id.split``.map(val => parseInt(val));
+          switch (e.keyCode) {
+            case 37:
+              // 左
+              is_wall_or_block = isWallOrBlock(row, column - 1);
+              moveCircle(row, column, row, column - 1, is_wall_or_block);
+              break;
+            case 38:
+              // 上
+              is_wall_or_block = isWallOrBlock(row - 1, column);
+              moveCircle(row, column, row - 1, column, is_wall_or_block);
+              break;
+            case 39:
+              // 右
+              is_wall_or_block = isWallOrBlock(row, column + 1);
+              moveCircle(row, column, row, column + 1, is_wall_or_block);
+              break;
+            case 40:
+              // 下
+              is_wall_or_block = isWallOrBlock(row + 1, column);
+              moveCircle(row, column, row + 1, column, is_wall_or_block);
+              break;
+          }
+        }
+      });
+    });
+
+    /**
+     * 指定マスが壁かブロックであるかを返却する
+     * @param {Number} row 行
+     * @param {Number}} column 列
+     * @return {Bool} 壁かブロックならtrue/それ以外はfalse
+     */
+    function isWallOrBlock(row, column) {
+      var IdNum = row*10+column;
+        // 当該マスが存在しない.つまり壁.->T
+        if(! $('#' + IdNum).length){
+          return true;
+        }      
+        // class="block"ある.つまりブロック.->T
+          if($('#'+IdNum).hasClass('block')){
+          return true;
+        }
+        // 壁でもブロックでもないとき.->F        
+          return false;
+    }
+    /**
+     * 指定マスから指定マスに〇を移動する
+     * @param {Number} row 現在の行
+     * @param {Number}} column 現在の列
+     * @param {Number} row 移動先の行
+     * @param {Number}} column 移動先の列
+     * @param {Number}} is_wall_or_block 壁かブロックかどうか
+     */
+     function moveCircle(from_row, from_column, to_row, to_column, is_wall_or_block) {
+      // 壁かブロック何もしない.
+      if(is_wall_or_block){
+        return;
+      }
+      // 現在位置の〇削除.
+      var FromNum=from_row*10+from_column;
+      $('#'+FromNum ).text("");
+      // 移動先に〇追加.
+      var ToNum=to_row*10+to_column;
+      $('#'+ToNum ).text("〇");     
+    }
   $(function () {
     alert('ゲームスタート');
 
@@ -137,8 +212,6 @@
       if (! [37, 38, 39, 40].includes(e.keyCode)) {
         return false;
       }
-
-      console.log($('.container > .inner > span.goal:contains("〇")'));
       if ($('.container > .inner > span.goal:contains("〇")').length) {
         // 〇のあるマスにclass="goal"がある場合.
         alert('ゲームクリア');
@@ -146,76 +219,4 @@
     });
   });
 </script>
-  
-<script>
-
-document.onkeydown = keydown
-
-var player=53;
-var KC=0;
-function keydown() {
-       target = document.getElementById("message");
-        target.innerHTML = "キーが押されました KeyCode :" + event.keyCode;
-   KC=event.keyCode;
-   if(KC==38){
-     target = document.getElementById("message2");
-     target.innerHTML = "上";
-  while(player>=21){
-    if(player==51){
-      
-      break;
-      }else{
-	player=player-10;
-      target=document.getElementById(player)
-  target.innerHTML = '〇'
-     target=document.getElementById(player+10)
-  target.innerHTML = ''
-}
-   }
-   }else if(KC==39){
-     target = document.getElementById("message2");
-     target.innerHTML = "右";
-  while(player%10!=5){
-	player=player+1;
-    
-      target=document.getElementById(player)
-  target.innerHTML = '〇'
-     target=document.getElementById(player-1)
-  target.innerHTML = ''
-
-   }
-   }else if(KC==40){
-     target = document.getElementById("message2");
-     target.innerHTML = "下";
-  while(player<=45){
-    if(player==31){
-      
-    break;
-    }else{
-	player=player+10;
-  target=document.getElementById(player)
-  target.innerHTML = '〇'
-     target=document.getElementById(player-10)
-  target.innerHTML = ''
-    }
-  }   
-
-   }else if(KC==37){
-     target = document.getElementById("message2");
-     target.innerHTML = "左"; 
-  while(player%10!=1){
-	player=player-1;
-    target=document.getElementById(player)
-  target.innerHTML = '〇'
-     target=document.getElementById(player+1)
-  target.innerHTML = ''
-  
-   }
-   }else{
-     target = document.getElementById("message2");
-     target.innerHTML = "";
-   }
-
- }
-  </script>
 </body>
