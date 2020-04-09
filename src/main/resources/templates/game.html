@@ -86,7 +86,10 @@
     <th:block th:each="class, j: ${row}">
       <div class="inner">
         <th:block th:switch="true">
-          <span th:id="|${i.count}${j.count}|" th:class="${class}"></span>
+          <span th:id="|${i.count}${j.count}|" th:case="${class.type == 1}" class=""></span>
+          <span th:id="|${i.count}${j.count}|" th:case="${class.type == 2}" class="start"></span>
+          <span th:id="|${i.count}${j.count}|" th:case="${class.type == 3}" class="goal"></span>
+          <span th:id="|${i.count}${j.count}|" th:case="${class.type == 4}" class="block"></span>
         </th:block>
       </div>
     </th:block>
