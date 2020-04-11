@@ -37,19 +37,13 @@
   .container .inner span.block {
     background: url('/image/wall.png') center center /cover no-repeat;
   }
-  .container .inner span.start:before {
-    content: 'start';
-    position: absolute;
-    color: #eee;
-    text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
-    opacity: 0.2;
+  .container .inner span.start {
+    background: url('/image/start.png') center center /cover no-repeat rgba(255,255,255,0.8);
+    background-blend-mode:lighten;
   }
-  .container .inner span.goal:before {
-    content: 'goal';
-    position: absolute;
-    color: #eee;
-    text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
-    opacity: 0.2;
+  .container .inner span.goal {
+    background: url('/image/goal.png') center center /cover no-repeat rgba(255,255,255,0.8);
+    background-blend-mode:lighten;
   }
 
   @media only screen and (max-width: 980px) {
