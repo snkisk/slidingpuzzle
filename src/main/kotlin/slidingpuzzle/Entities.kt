@@ -2,6 +2,7 @@ package slidingpuzzle
 
 import java.time.LocalDateTime
 import javax.persistence.*
+import java.io.Serializable;
 
 @Entity
 data class StageMaster(
@@ -13,9 +14,13 @@ data class StageMaster(
 
 @Entity
 data class StageCells(
-    @Id
-    @GeneratedValue
-    val id: Long,
-    val stageId: Int,
+    @EmbeddedId
+    val stageCellsId: StageCellsId,
     val type: Int
 )
+
+@Embeddable
+data class StageCellsId(
+    val stageId: Int,
+    val cellId: Int
+): Serializable
