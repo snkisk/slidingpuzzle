@@ -200,7 +200,7 @@
       $('#'+ToNum ).text("〇");     
     }
   $(function () {
-    alert('ゲームスタート');
+    setTimeout(() => alert('ゲームスタート'), 100);
 
     $(window).keydown(function (e) {
       if (! [37, 38, 39, 40].includes(e.keyCode)) {
@@ -208,7 +208,7 @@
       }
       if ($('.container > .inner > span.goal:contains("〇")').length) {
         // 〇のあるマスにclass="goal"がある場合.
-        alert('ゲームクリア');
+        setTimeout(() => alert('ゲームクリア'), 100);
       }
     });
   });
