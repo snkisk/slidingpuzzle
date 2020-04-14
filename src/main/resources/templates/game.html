@@ -95,40 +95,66 @@
 
   <script>
     $(function () {
-      $(window).keydown(function (e) {
-        if (! [37, 38, 39, 40].includes(e.keyCode)) {
+      var pos_x, pos_y;
+
+      setTimeout(() => alert('ゲームスタート'), 100);
+
+      document.addEventListener('keydown', main, {passive: false});
+      document.addEventListener('touchstart', main, {passive: false});
+      document.addEventListener('touchend', main, {passive: false});
+    });
+
+    function main(e) {
+      switch (true) {
+        case e.type == 'click' && ! [37, 38, 39, 40].includes(e.keyCode):
           // 十字キー以外なので処理終了.
           return false;
-        }
-
-        let is_wall_or_block = false;
-        while (! is_wall_or_block) {
-          let [row, column] = $('.container > .inner > span:contains("〇")')[0].id.split``.map(val => parseInt(val));
-          switch (e.keyCode) {
-            case 37:
-              // 左
-              is_wall_or_block = isWallOrBlock(row, column - 1);
-              moveCircle(row, column, row, column - 1, is_wall_or_block);
-              break;
-            case 38:
-              // 上
-              is_wall_or_block = isWallOrBlock(row - 1, column);
-              moveCircle(row, column, row - 1, column, is_wall_or_block);
-              break;
-            case 39:
-              // 右
-              is_wall_or_block = isWallOrBlock(row, column + 1);
-              moveCircle(row, column, row, column + 1, is_wall_or_block);
-              break;
-            case 40:
-              // 下
-              is_wall_or_block = isWallOrBlock(row + 1, column);
-              moveCircle(row, column, row + 1, column, is_wall_or_block);
-              break;
+        case e.type == 'touchstart':
+          [pos_x, pos_y] = [e.changedTouches[0].clientX, e.changedTouches[0].clientY, 0, 0];
+          return false;
+        case e.type == 'touchend':
+          var swipe = swipeCheck(pos_x, pos_y, e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+          if (! swipe) {
+            return false;
           }
+      }
+
+      let is_wall_or_block = false;
+      while (! is_wall_or_block) {
+        let [row, column] = $('.container > .inner > span:contains("〇")')[0].id.split``.map(val => parseInt(val));
+        switch (true) {
+          case e.keyCode == 37:
+          case swipe == 'left':
+            // 左
+            is_wall_or_block = isWallOrBlock(row, column - 1);
+            moveCircle(row, column, row, column - 1, is_wall_or_block);
+            break;
+          case e.keyCode == 38:
+          case swipe == 'top':
+            // 上
+            is_wall_or_block = isWallOrBlock(row - 1, column);
+            moveCircle(row, column, row - 1, column, is_wall_or_block);
+            break;
+          case e.keyCode == 39:
+          case swipe == 'right':
+            // 右
+            is_wall_or_block = isWallOrBlock(row, column + 1);
+            moveCircle(row, column, row, column + 1, is_wall_or_block);
+            break;
+          case e.keyCode == 40:
+          case swipe == 'bottom':
+            // 下
+            is_wall_or_block = isWallOrBlock(row + 1, column);
+            moveCircle(row, column, row + 1, column, is_wall_or_block);
+            break;
         }
-      });
-    });
+      }
+
+      if ($('.container > .inner > span.goal:contains("〇")').length) {
+        // 〇のあるマスにclass="goal"がある場合.
+        setTimeout(() => alert('ゲームクリア'), 100);
+      }
+    }
 
     /**
      * 指定マスが壁かブロックであるかを返却する
@@ -169,18 +195,28 @@
       var ToNum=to_row*10+to_column;
       $('#'+ToNum ).text("〇");     
     }
-  $(function () {
-    setTimeout(() => alert('ゲームスタート'), 100);
 
-    $(window).keydown(function (e) {
-      if (! [37, 38, 39, 40].includes(e.keyCode)) {
-        return false;
+
+    /**
+     * スマホでのスワイプ方向を判定
+     * @param {Number} スワイプ開始時のx座標
+     * @param {Number} スワイプ開始時のy座標
+     * @param {Number} スワイプ終了時のx座標
+     * @param {Number} スワイプ終了時のy座標
+     */
+    function swipeCheck(start_x, start_y, end_x, end_y) {
+      switch (true) {
+        case start_x - end_x > 70:
+          return 'left';
+        case start_x - end_x < -70:
+          return 'right';
+        case start_y - end_y > 70:
+          return 'top';
+        case start_y - end_y < -70:
+          return 'bottom';
+        default:
+          return null;
       }
-      if ($('.container > .inner > span.goal:contains("〇")').length) {
-        // 〇のあるマスにclass="goal"がある場合.
-        setTimeout(() => alert('ゲームクリア'), 100);
-      }
-    });
-  });
+    }
 </script>
 </body>
