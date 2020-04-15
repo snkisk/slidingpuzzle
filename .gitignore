@@ -31,3 +31,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# local properties
+src/main/resources/application-local.properties
