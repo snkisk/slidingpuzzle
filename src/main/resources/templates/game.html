@@ -34,6 +34,11 @@
     align-items: center;
     justify-content: center;
   }
+
+  .container .inner span.current:after {
+    content: '〇';
+  }
+
   .container .inner:nth-child(even) span {
     background-color: #eee;
   }
@@ -84,7 +89,7 @@
       <div class="inner">
         <th:block th:switch="true">
           <span th:id="|${i.count}${j.count}|" th:case="${class.type == 1}" class=""></span>
-          <span th:id="|${i.count}${j.count}|" th:case="${class.type == 2}" class="start" th:text="〇"></span>
+          <span th:id="|${i.count}${j.count}|" th:case="${class.type == 2}" class="start" class="current"></span>
           <span th:id="|${i.count}${j.count}|" th:case="${class.type == 3}" class="goal"></span>
           <span th:id="|${i.count}${j.count}|" th:case="${class.type == 4}" class="block"></span>
         </th:block>
@@ -193,10 +198,10 @@
       }
       // 現在位置の〇削除.
       var FromNum=from_row*10+from_column;
-      $('#'+FromNum ).text("");
+      $('#'+FromNum ).removeClass("current");
       // 移動先に〇追加.
       var ToNum=to_row*10+to_column;
-      $('#'+ToNum ).text("〇");     
+      $('#'+ToNum ).addClass("current");     
     }
 
 
